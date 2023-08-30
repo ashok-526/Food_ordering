@@ -135,6 +135,24 @@ import requests as req
 
 
 def payment(request, *args, **kwargs):
+
+    if request.method == 'POST':
+
+
+        name=request.POST.get('name')
+        email=request.POST.get('email')
+        address=request.POST.get('address')
+        contact=request.POST.get('contact')
+        note=request.POST.get('note')
+
+
+        Order_place.objects.create(
+            name=name,
+            email=email,
+            address=address,
+            contact=contact,
+            note=note
+            )
     # Get the cart and calculate total
     cart = Cart.objects.get(is_paid=False, user=request.user)
     total = CartItem.objects.filter(cart_reference=cart).aggregate(Sum('pizza_reference__price'))['pizza_reference__price__sum']

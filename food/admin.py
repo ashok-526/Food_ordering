@@ -10,6 +10,7 @@ class MemberAdmin(admin.ModelAdmin):
 admin.site.register(Categories, MemberAdmin)
 admin.site.register(Pizza, MemberAdmin) 
 admin.site.register(Cart, MemberAdmin) 
-admin.site.register(CartItem, MemberAdmin) 
+admin.site.register(CartItem, MemberAdmin)
+admin.site.register(Order_place, MemberAdmin)  
 
 
