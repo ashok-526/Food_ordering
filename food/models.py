@@ -37,14 +37,14 @@ class CartItem(Basemodel):
 
     
 
-class Order_place(Basemodel):
+class orderplace(Basemodel):
 
     name=models.CharField(max_length=40)
     email= models.EmailField()
     address = models.CharField(max_length=100)
     contact = models.IntegerField()
     note = models.TextField()
-    Payment = models.CharField(max_length=40)
+
 
     def __str__(self):
         return self.name

@@ -1,3 +1,6 @@
+
+from django.db import transaction
+from django.urls import reverse
 from django.db.models import *
 from django.shortcuts import render, redirect
 from .models import *
@@ -130,12 +133,8 @@ def dashboard(request):
     context = {'dash_boards': dash_boards}
     return render(request, 'dashboard.html', context)
 
-import requests as req
 
-
-
-def payment(request, *args, **kwargs):
-
+def order_info(request):
     if request.method == 'POST':
 
 
@@ -146,13 +145,24 @@ def payment(request, *args, **kwargs):
         note=request.POST.get('note')
 
 
-        Order_place.objects.create(
+        order=orderplace.objects.create(
             name=name,
             email=email,
             address=address,
             contact=contact,
             note=note
             )
+
+        return redirect(reverse('payment', args=[order.uid]))
+    return render(request , 'orderplace.html')
+
+import requests as req
+
+
+
+def payment(request, *args, **kwargs):
+
+   
     # Get the cart and calculate total
     cart = Cart.objects.get(is_paid=False, user=request.user)
     total = CartItem.objects.filter(cart_reference=cart).aggregate(Sum('pizza_reference__price'))['pizza_reference__price__sum']
@@ -181,11 +191,12 @@ def payment(request, *args, **kwargs):
             # cart.add_items(...) 
             
             # Mark the cart as paid and save it
-           if not cart.is_paid:
+            if not cart.is_paid:
                 cart.is_paid = True
                 cart.esewa = request.GET.get('oid')
                 cart.save()
 
+            
 
         return redirect("/dashboard")
     

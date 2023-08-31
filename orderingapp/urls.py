@@ -29,7 +29,10 @@ urlpatterns = [
     path('',views.order_home, name='order'),
     path('cart/' , views.cart, name='cart'),
     path('DashBoard/', views.dashboard , name='DashBoard'),
+    path('order-place/' , views.order_info , name='order_info'),
+
     path('payment/<str:order_uid>/', views.payment, name='payment'),
+
     path('remove_item/<remove_item>',views.remove_item , name='remove_item')
 ]
 

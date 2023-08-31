@@ -1,45 +1,86 @@
-{% extends 'base.html' %}
-{% block start %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-<div class="container mt-5 ">
-  <form method="post" class="col-6 mx-auto card px-3 shadow-lg" enctype="multipart/form-data">
-    {% csrf_token %}
-    <h2 class="py-2">Payment Process..</h2>
-    <hr>
-    <div class="mb-3">
-      <label class="form-label">Name</label>
-      <input type="text" name="name" class="form-control" required>
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Email</label>
-      <input type="email" name="email" class="form-control" id="exampleInputPassword1" required>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Address</label>
-      <input type="text" name="address" class="form-control" required>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Contact no.</label>
-      <input type="number" name="contact" class="form-control" min="1000000000" max="9999999999" required>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Leave Note</label>
-      <textarea name="note" class="form-control" placeholder="Message" ></textarea>
-    </div>
-  </form>
-</div>
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .alert {
+            border-left: 4px solid #28a745;
+            background-color: #f0f9eb;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .alert-heading {
+            margin-top: 0;
+            color: #28a745;
+        }
+
+        .alert p {
+            margin-bottom: 10px;
+        }
+
+        .btn-checkout {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-checkout:hover {
+            background-color: #218838;
+        }
+
+        /* Optional: Add more styles to form inputs */
+        form input[type="hidden"] {
+            display: none;
+        }
+    </style>
+</head>
 <body>
-    <form action="https://uat.esewa.com.np/epay/main" method="POST">
-        <input value="{{ pay_total }}" name="tAmt" type="hidden">
-        <input value="{{ pay_total }}" name="amt" type="hidden">
-        <input value="0" name="txAmt" type="hidden">
-        <input value="0" name="psc" type="hidden">
-        <input value="0" name="pdc" type="hidden">
-        <input value="EPAYTEST" name="scd" type="hidden">
-        <input value="{{ uid }}" name="pid" type="hidden">
-        <input value="http://127.0.0.1:8000/DashBoard/" type="hidden" name="su">
-        <input value="{{ request.build_absolute_uri }}" type="hidden" name="fu">
-        <input class="btn btn-outline-primary" value="Submit" type="submit">
-    </form>
+    <div class="container">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Do You Want to Confirm Payment?</h4>
+            <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+            <hr>
+            <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+        </div>
+        <form action="https://uat.esewa.com.np/epay/main" method="POST">
+            <input value="{{ pay_total }}" name="tAmt" type="hidden">
+            <input value="{{ pay_total }}" name="amt" type="hidden">
+            <input value="0" name="txAmt" type="hidden">
+            <input value="0" name="psc" type="hidden">
+            <input value="0" name="pdc" type="hidden">
+            <input value="EPAYTEST" name="scd" type="hidden">
+            <input value="{{ uid }}" name="pid" type="hidden">
+            <input value="http://127.0.0.1:8000/DashBoard/" type="hidden" name="su">
+            <input value="{{ request.build_absolute_uri }}" type="hidden" name="fu">
+            <button class="btn-checkout" type="submit">Submit</button>
+        </form>
+    </div>
 </body>
-{% endblock %}
+</html>
