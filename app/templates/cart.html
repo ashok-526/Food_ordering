@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+
+{% block start%}
+
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+
+<table class=" mt-5 table table-striped table-hover table-bordered " enctype="multipart/form-data">
+  <thead>
+    <tr>
+      <th scope="col">S.N</th>
+      <th scope="col">Product</th>
+      <th scope="col">Product_Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Qty</th>
+      <th scope="col">Total</th>
+      <th scope="col">Action</th>
+      
+    </tr>
+  </thead>
+  <tbody class=" table-group-divider t">
+    {% for cart in carts.food_items.all %}
+    <tr>
+      <th>{{forloop.counter}}</th>
+      <td>
+        <img src="/media/{{cart.pizza_reference.image}}" style="height:120px;width:180px;"</td>
+      <th>{{cart.pizza_reference.pizza_name}}</th>
+      <td>{{cart.pizza_reference.price}}</td>
+      <td>1</td>
+
+      <td>{{cart.pizza_reference.price}}</td>
+
+      </td>
+      <td><a href="{% url 'remove_item' cart.uid%}"class="btn btn-danger">Delete</a>
+
+
+  </tr>
+
+    {% endfor%} 
+
+   
+  </tbody>
+
+</table>
+
+<h2 class="text-2xl text-right mx-44">Grand Total: {{total}}</h2>
+<a href="{% url 'order_info'  %}" class="text-2xl text-right mx-44 btn btn-outline-primary">Payment</a>
+
+
+{% endblock %}

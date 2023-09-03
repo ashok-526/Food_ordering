@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block start %}
+<script src="https://cdn.tailwindcss.com"></script>
+
+<table class="mt-5 table table-striped table-hover table-bordered" enctype="multipart/form-data">
+  <thead>
+    <tr>
+      <th scope="col">S.N</th>
+      <th scope="col">Total</th>
+      <th scope="col">Date</th>
+      <th scope="col">Grand Total</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider t">
+    {% for dashboard in dash_boards %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+     
+      <td>{{ dashboard.food_items.all|length }}</td>
+      <td>{{ dashboard.created_at }}</td>
+      <td>{{ dashboard.total_price }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{{cart.is_paid}}
+{% endblock %}
+
+
