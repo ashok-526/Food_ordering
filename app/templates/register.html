@@ -1,41 +1,73 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 
+{% block start %}
+<style>
+  body {
+    background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080') no-repeat center center fixed;
+    background-size: cover;
+  }
+  .card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+  }
+  h2 {
+    font-family: 'Pacifico', cursive;
+    color: #f77f00;
+  }
+  .form-control:focus {
+    border-color: #f77f00;
+    box-shadow: 0 0 5px rgba(247, 127, 0, 0.5);
+  }
+  .btn-primary {
+    background-color: #f77f00;
+    border-color: #f77f00;
+  }
+  .btn-primary:hover {
+    background-color: #d66d00;
+    border-color: #d66d00;
+  }
+  a {
+    color: #f77f00;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
 
-{% block start%}
-
-  <div class="container mt-5 ">
-<form method="post" class="col-6 mx-auto card px-3 shadow-lg" enctype="multipart/form-data">
-  {% csrf_token %}
-  <h2 class="py-2"> Register</h2>
-  <hr>
-  {% if messages%}
-  <div class="alert alert-primary" role="alert">
-
-    {% for message in messages %}
-    {{ message }}
-    {% endfor %}
-  </div>
-{% endif %}
+<div class="container mt-5 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <form method="post" class="col-md-6 col-lg-5 card px-4 py-5 shadow-lg" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2 class="text-center mb-4">Register</h2>
+    <hr>
+    {% if messages %}
+    <div class="alert alert-primary" role="alert">
+      {% for message in messages %}
+      {{ message }}
+      {% endfor %}
+    </div>
+    {% endif %}
     <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">First Name</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" name="first_name">
-  </div>
+      <label for="first_name" class="form-label">First Name</label>
+      <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name">
+    </div>
     <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Last Name</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" name="last_name">
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label" required >Username</label>
-    <input type="text" class="form-control"id="exampleInputEmail1" name="username">
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" name="password" required>
-  </div>
-  <div class="mb-5">
-  <button type="submit" class="btn btn-primary">Submit</button>
-  <p class="">Already have account?<a href="/login">Login</a></p></form></div></form>
-</body>
-</html>
+      <label for="last_name" class="form-label">Last Name</label>
+      <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter your last name">
+    </div>
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" class="form-control" id="username" name="username" placeholder="Choose a username" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required>
+    </div>
+    <div class="d-grid mb-3">
+      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </div>
+    <p class="text-center">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+  </form>
+</div>
 
-{%endblock%}
+{% endblock %}

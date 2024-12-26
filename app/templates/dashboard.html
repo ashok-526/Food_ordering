@@ -3,30 +3,41 @@
 {% block start %}
 <script src="https://cdn.tailwindcss.com"></script>
 
-<table class="mt-5 table table-striped table-hover table-bordered" enctype="multipart/form-data">
-  <thead>
-    <tr>
-      <th scope="col">S.N</th>
-      <th scope="col">Total</th>
-      <th scope="col">Date</th>
-      <th scope="col">Grand Total</th>
-    </tr>
-  </thead>
-  <tbody class="table-group-divider t">
-    {% for dashboard in dash_boards %}
-    <tr>
-      <td>{{ forloop.counter }}</td>
-     
-      <td>{{ dashboard.food_items.all|length }}</td>
-      <td>{{ dashboard.created_at }}</td>
-      <td>{{ dashboard.total_price }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="container mx-auto mt-10">
+    <h1 class="text-center text-2xl font-bold text-gray-800 mb-6">Dashboard Summary</h1>
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">S.N</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Total Items</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Date</th>
+                    <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Grand Total</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-300">
+                {% for dashboard in dash_boards %}
+                <tr class="hover:bg-gray-100">
+                    <td class="py-2 px-4 text-sm text-gray-700">{{ forloop.counter }}</td>
+                    <td class="py-2 px-4 text-sm text-gray-700">{{ dashboard.food_items.all|length }}</td>
+                    <td class="py-2 px-4 text-sm text-gray-700">{{ dashboard.created_at }}</td>
+                    <td class="py-2 px-4 text-sm text-gray-700 font-bold text-green-600">${{ dashboard.total_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-5 text-center">
+        <p class="text-lg font-medium text-gray-600">
+            Payment Status: <span class="{% if cart.is_paid %}text-green-500{% else %}text-red-500{% endif %}">{{ cart.is_paid|yesno:"Paid,Not Paid" }}</span>
+        </p>
+    </div>
+</div>
 
-
-{{cart.is_paid}}
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+</style>
 {% endblock %}
-
-

@@ -1,33 +1,65 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 
+{% block start %}
+<style>
+  body {
+    background: url('https://www.restroapp.com/blog/wp-content/uploads/2020/03/online-food-ordering-statistics-RestroApp.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+  .card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+  }
+  h2 {
+    font-family: 'Pacifico', cursive;
+    color: #f77f00;
+  }
+  .form-control:focus {
+    border-color: #f77f00;
+    box-shadow: 0 0 5px rgba(247, 127, 0, 0.5);
+  }
+  .btn-primary {
+    background-color: #f77f00;
+    border-color: #f77f00;
+  }
+  .btn-primary:hover {
+    background-color: #d66d00;
+    border-color: #d66d00;
+  }
+  a {
+    color: #f77f00;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
 
-{% block start%}
-
-
-<div class="container mt-5 ">
-<form method="post" class="col-6 mx-auto card px-3 shadow-lg" enctype="multipart/form-data">
-  {% csrf_token %}
-  <h2 class="py-2">Login</h2>
-  <hr>
-  {% if messages%}
-  <div class="alert alert-primary" role="alert">
-
-    {% for message in messages %}
-    {{ message }}
-    {% endfor %}</div>
+<div class="container mt-5 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <form method="post" class="col-md-6 col-lg-5 card px-4 py-5 shadow-lg" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2 class="text-center mb-4">Login</h2>
+    <hr>
+    {% if messages %}
+    <div class="alert alert-primary" role="alert">
+      {% for message in messages %}
+      {{ message }}
+      {% endfor %}
+    </div>
     {% endif %}
-  <div class="mb-3">
-    <label  class="form-label">Username</label>
-    <input type="text" name="username" class="form-control" required>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
-  </div>
-  <div class="mb-5">
-  <button type="submit" class="btn btn-primary">Login</button>
-  <p>Don't Have account?<a href="/register">Register</a></p></div></form></div>
-</body>
-</html>
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" name="username" id="username" class="form-control" placeholder="Enter your username" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
+    </div>
+    <div class="d-grid mb-3">
+      <button type="submit" class="btn btn-primary btn-block">Login</button>
+    </div>
+    <p class="text-center">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+  </form>
+</div>
 
-{%endblock%}
+{% endblock %}

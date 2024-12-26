@@ -18,7 +18,8 @@ class Pizza(Basemodel):
     category = models.ForeignKey(Categories, on_delete=models.CASCADE, related_name='food')
     pizza_name = models.CharField(max_length=50)
     price = models.IntegerField()
-    image = models.ImageField(upload_to='media')
+    image = models.ImageField(upload_to='pizzas/')  # Files will be stored in `media/pizzas/`
+
 
 class Cart(Basemodel):  #
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='carts')

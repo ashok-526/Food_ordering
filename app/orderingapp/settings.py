@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-k_+q+(zxfa)l6#kk%1-i0*jb6z3&m*is7l87_lewm!qwtt8m47'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app','127.0.0.1','.now.sh']
 
 AUTH_USER_MODEL = 'auth.User'
 # Application definition
@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'orderingapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'rBLJFBkkUohldRyQSNhAVLBNSrcXnzWX',
+        'HOST': 'junction.proxy.rlwy.net',
+        'PORT': '35675',
     }
 }
 
@@ -118,19 +122,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
-STATIC_ROOT = 'staticfiles'
+import os
+
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-# ... (other settings)
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+if DEBUG:
+    # During development, serve static files from the `public/static` directory
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'public/static')]
+else:
+    # In production, collect all static files into `staticfiles`
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'public/static'),  # Adjust the path according to your actual app name
-]
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'public/static')
+# Media files (Uploaded by users)
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 
 # Default primary key field type
