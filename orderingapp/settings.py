@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -127,17 +128,17 @@ import os
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-if DEBUG:
     # During development, serve static files from the `public/static` directory
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'public/static')]
-else:
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
     # In production, collect all static files into `staticfiles`
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Media files (Uploaded by users)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+STATICFILES_STORAGE= "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # Default primary key field type

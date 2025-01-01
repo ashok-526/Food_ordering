@@ -7,7 +7,7 @@
         {% for pizza in pizzaa %}
         <div class="col-md-4 col-lg-3">
             <div class="card shadow-lg border-0 rounded-4">
-                <img src="/media/{{ pizza.image }}" style="height:230px; object-fit:cover;" class="card-img-top rounded-top" alt="{{ pizza.pizza_name }}">
+                <img src="/static/{{ pizza.image }}" style="height:230px; object-fit:cover;" class="card-img-top rounded-top" alt="{{ pizza.pizza_name }}">
                 <div class="card-body">
                     <h5 class="card-title text-truncate">{{ pizza.pizza_name }}</h5>
                     <p class="text-muted small mb-2">Category: <strong>{{ pizza.category.category_name }}</strong></p>
